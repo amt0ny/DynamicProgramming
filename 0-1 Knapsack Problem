@@ -1,0 +1,29 @@
+	public static void main(String[] args) {
+		int profit[] = {10,20,30,40};
+		int weight[] = {1,2,3,4};
+		int weightLimit = 8;
+
+		System.out.println(knapsak(profit, weight, weightLimit, profit.length));
+
+	}
+	
+	
+	private static int knapsak(int[] profit, int[] weight, int weightLimit, int length) {
+		
+		if (length == 0 || weightLimit == 0) {
+			return 0;
+		}
+		else if (weight[length-1]>weightLimit) {
+			return knapsak(profit, weight, weightLimit, length-1);
+		}
+		else {
+			return max(profit[length-1]+ knapsak(profit, weight, weightLimit-weight[length-1], length-1), knapsak(profit, weight, weightLimit, length-1));
+      // This is the complicated part of it why we calling knapsack for not to add in profit
+      // cause what if we have a negative value in profite array then its better not to add it
+		}
+	}
+
+
+	public static int max(int a, int b) {
+		return (a > b) ? a: b;
+	}
